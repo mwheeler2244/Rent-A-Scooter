@@ -12,7 +12,6 @@ function Login() {
   const location = useLocation();
 
   const loginMessage = location.state?.message;
-  const from = location.state?.from || "/host";
 
   const navigate = useNavigate();
 
@@ -24,7 +23,7 @@ function Login() {
       .then((data) => {
         setMessage(data);
         localStorage.setItem("loggedIn", true);
-        navigate(from, { replace: true });
+        navigate("/", { replace: true });
         setUserSubmit({ email: "", password: "" });
       })
       .catch((error) => setError(error.message))

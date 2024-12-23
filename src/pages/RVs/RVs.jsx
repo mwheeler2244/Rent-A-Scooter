@@ -28,25 +28,33 @@ function RVs() {
 
       <nav>
         <button
-          onClick={() => setSearchParams({ type: "luxury" })}
+          onClick={() => setSearchParams({ type: "Compact" })}
           className={
-            typeFilter === "luxury"
-              ? "rvs-type luxury selected"
-              : "rvs-type luxury"
+            typeFilter === "Compact"
+              ? "rvs-type Compact selected"
+              : "rvs-type Compact"
           }
         >
-          Luxury
+          Compact
         </button>
 
         <button
           className={
-            typeFilter === "simple"
-              ? "rvs-type simple selected"
-              : "rvs-type simple"
+            typeFilter === "Standard"
+              ? "rvs-type Standard selected"
+              : "rvs-type Standard"
           }
-          onClick={() => setSearchParams({ type: "simple" })}
+          onClick={() => setSearchParams({ type: "Standard" })}
         >
-          Simple
+          Standard
+        </button>
+        <button
+          className={
+            typeFilter === "Max" ? "rvs-type Max selected" : "rvs-type Max"
+          }
+          onClick={() => setSearchParams({ type: "Max" })}
+        >
+          Max
         </button>
 
         {typeFilter && (
@@ -73,8 +81,8 @@ function RVs() {
                   ${rv.price}
                   <span>/day</span>
                 </p>
+                <i className={`rv-type ${rv.type} selected`}>{rv.type}</i>
               </div>
-              <i className={`rv-type ${rv.type} selected`}>{rv.type}</i>
             </Link>
           </div>
         ))}

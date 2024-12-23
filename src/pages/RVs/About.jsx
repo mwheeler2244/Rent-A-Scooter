@@ -5,25 +5,26 @@ function About() {
   return (
     <div className="about-page-container">
       <div className="about-page-content">
-        <h1>Don’t squeeze in a sedan when you could relax in a van.</h1>
+        <h1>Don’t settle for a car when you could cruise on a scooter.</h1>
         <p>
-          Our mission is to enliven your road trip with the perfect travel van
-          rental. Our vans are recertified before each trip to ensure your
-          travel plans can go off without a hitch. (Hitch costs extra 😉)
+          Our mission is to elevate your city adventure with the perfect scooter
+          rental. All our scooters are checked and ready for your journey, so
+          you can ride with peace of mind. (Helmets are provided for your safety
+          😉)
         </p>
         <p>
-          Our team is full of vanlife enthusiasts who know firsthand the magic
-          of touring the world on 4 wheels.
+          Our team is passionate about scooters and we believe that exploring
+          the world on two wheels is the best way to experience it.
         </p>
       </div>
       <div className="about-page-cta">
         <h2>
-          Your destination is waiting.
+          Your adventure awaits.
           <br />
-          Your van is ready.
+          Your scooter is ready.
         </h2>
         <Link className="link-button" to="/rvs">
-          Explore our RVs
+          Explore our scooters
         </Link>
       </div>
     </div>
