@@ -1,6 +1,5 @@
-import React from "react";
-import { useState } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import loginUser from "../Api.js";
 
 function Login() {
@@ -8,10 +7,6 @@ function Login() {
   const [message, setMessage] = useState("");
   const [error, setError] = useState(null);
   const [status, setStatus] = useState("idle");
-
-  const location = useLocation();
-
-  const loginMessage = location.state?.message;
 
   const navigate = useNavigate();
 
@@ -21,9 +16,11 @@ function Login() {
 
     loginUser(userSubmit)
       .then((data) => {
-        setMessage(data);
+        setMessage(`Welcome back, ${data.email}`);
         localStorage.setItem("loggedIn", true);
-        navigate("/", { replace: true });
+        localStorage.setItem("userEmail", data.email);
+        // Pass the user data to the Dashboard page using state
+        navigate("/host", { replace: true });
         setUserSubmit({ email: "", password: "" });
       })
       .catch((error) => setError(error.message))
@@ -37,8 +34,7 @@ function Login() {
 
   return (
     <div className="login-container">
-      {loginMessage && <h3 style={{ color: "red" }}>{loginMessage}</h3>}
-      <h1>Sing in to your account</h1>
+      <h1>Sign in to your account</h1>
       {error && <p style={{ color: "red" }}>{error}</p>}
       <form onSubmit={handleForm} className="login-form">
         <input
@@ -63,7 +59,7 @@ function Login() {
           {status === "submitting" ? "Logging in..." : "Log in "}
         </button>
       </form>
-      <p>{message ? `the user : ${message.user?.email} was submitted` : ""}</p>
+      <p>{message}</p>
     </div>
   );
 }

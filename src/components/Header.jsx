@@ -40,43 +40,43 @@ function Header() {
 
       <nav className={mobile ? "navBar active" : "navBar"}>
         <i onClick={handleMobile} className={"mobile-close fa fa-times"}></i>
-        <NavLink
-          onClick={closeMobileNav}
-          style={(obj) => (obj.isActive ? styles : null)}
-          to="/"
-        >
-          Home
-        </NavLink>
-        <NavLink
-          onClick={closeMobileNav}
-          style={(obj) => (obj.isActive ? styles : null)}
-          to="/host"
-        >
-          Host
-        </NavLink>
-
-        <NavLink
-          onClick={closeMobileNav}
-          style={(obj) => (obj.isActive ? styles : null)}
-          to="/about"
-        >
-          About
-        </NavLink>
-        <NavLink
-          onClick={closeMobileNav}
-          style={(obj) => (obj.isActive ? styles : null)}
-          to="/rvs"
-        >
-          Scooters
-        </NavLink>
-
-        <NavLink
-          onClick={closeMobileNav}
-          style={(obj) => (obj.isActive ? styles : null)}
-          to="/login"
-        >
-          Login
-        </NavLink>
+        <div className="nav-links">
+          <NavLink
+            onClick={closeMobileNav}
+            style={(obj) => (obj.isActive ? styles : null)}
+            to="/"
+          >
+            Home
+          </NavLink>
+          <NavLink
+            onClick={closeMobileNav}
+            style={(obj) => (obj.isActive ? styles : null)}
+            to="/host"
+          >
+            Host
+          </NavLink>
+          <NavLink
+            onClick={closeMobileNav}
+            style={(obj) => (obj.isActive ? styles : null)}
+            to="/about"
+          >
+            About
+          </NavLink>
+          <NavLink
+            onClick={closeMobileNav}
+            style={(obj) => (obj.isActive ? styles : null)}
+            to="/rvs"
+          >
+            Scooters
+          </NavLink>
+          <NavLink
+            onClick={closeMobileNav}
+            style={(obj) => (obj.isActive ? styles : null)}
+            to="/login"
+          >
+            Login
+          </NavLink>
+        </div>
         <button className="logout-button" onClick={fakeLogOut}>
           Logout
         </button>

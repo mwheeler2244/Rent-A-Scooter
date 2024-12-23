@@ -30,10 +30,39 @@ header nav {
   align-items: center;
   padding-block: 1rem;
 }
+.navBar {
+  display: flex;
+  justify-content: space-between; /* Keeps logout button on the right */
+  align-items: center; /* Vertically centers all items */
+  padding: 10px 20px;
+}
+
 .nav-links {
   display: flex;
-  justify-content: center;
-  flex-grow: 1;
+  justify-content: center; /* Centers the navigation links */
+  gap: 20px; /* Adds space between the links */
+  flex-grow: 1; /* Takes up remaining space so the logout button can align to the right */
+  margin-right: 20px; /* Optional: gives space between the links and logout button */
+}
+
+.logout-button {
+  background-color: #ec5b53; /* Button color */
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.logout-button:hover {
+  background-color: #c74e41; /* Darker color on hover */
+}
+
+.mobile-close {
+  color: white;
+  font-size: 30px;
+  cursor: pointer;
 }
 
 header .site-logo {
@@ -541,22 +570,66 @@ i[class*="rv-type-"] {
   font-family: "Inter", sans-serif;
 }
 
+.dashboard-container {
+  background-color: #f0f4f8;
+  padding: 30px 20px;
+  margin: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.dashboard-title {
+  font-size: 2rem;
+  font-weight: bold;
+  color: #002d5b;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.user-email {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #333;
+  text-align: center;
+  margin-top: 10px;
+}
+
+.user-email span {
+  color: #ec5b53;
+  font-style: italic;
+}
+
+.login-prompt {
+  font-size: 1rem;
+  color: #888;
+  text-align: center;
+  font-style: italic;
+  margin-top: 10px;
+}
 @media (max-width: 600px) {
   .navBar {
     position: absolute;
-
     top: 0;
     right: -1000px;
     flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 75%;
+    transition: right 0.3s ease-in-out;
+    background-color: white;
+    padding: 0;
+    z-index: 10;
   }
 
   .navBar.active {
     right: 0;
-    background-color: white;
-    align-items: center;
-    justify-content: center;
   }
+
   header .mobile-open {
+    scale: 1.5;
     display: block;
     position: absolute;
     top: 10px;
@@ -567,7 +640,51 @@ i[class*="rv-type-"] {
     padding: 0.5rem;
     border-radius: 100vw;
   }
+
   header .mobile-close {
     display: block;
+    font-size: 2rem;
+    color: #333;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
+  }
+
+  .nav-links {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    padding-block: 5rem;
+  }
+
+  .navBar a {
+    color: #333;
+    text-decoration: none;
+    font-size: 1.2rem;
+    padding: 15px;
+    width: 100%;
+    text-align: center;
+  }
+
+  .navBar a:hover {
+    background-color: #f1f1f1;
+  }
+
+  .logout-button {
+    background-color: #ec5b53;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    width: 100%;
+    text-align: center;
+  }
+
+  .logout-button:hover {
+    background-color: #c74e41;
   }
 }

@@ -1,5 +1,11 @@
 import { initializeApp } from "firebase/app";
 import {
+  getAuth,
+  signInWithEmailAndPassword,
+  createUserWithEmailAndPassword,
+} from "firebase/auth";
+
+import {
   getFirestore,
   collection,
   doc,
@@ -19,11 +25,10 @@ const firebaseConfig = {
 };
 
 const app = initializeApp(firebaseConfig);
-
+const auth = getAuth(app);
 const database = getFirestore(app);
 
 // Refactor fetch calls
-
 const scooterDatabaseRef = collection(database, "Scooters");
 
 export async function getScooters() {
@@ -43,8 +48,13 @@ export async function getScooter(id) {
   return { ...snapshot.data(), id: snapshot.id };
 }
 
-export async function getHostScooter() {
-  const q = query(scooterDatabaseRef, where("hostId", "==", "123"));
+export async function getHostScooter(user) {
+  if (!user) {
+    throw new Error("No user is logged in");
+  }
+
+  const hostId = user.uid;
+  const q = query(scooterDatabaseRef, where("hostId", "==", hostId));
   const snapshot = await getDocs(q);
   const scooters = snapshot.docs.map((doc) => ({
     ...doc.data(),
@@ -53,22 +63,56 @@ export async function getHostScooter() {
   return scooters;
 }
 
-async function loginUser(creds) {
-  const res = await fetch("/api/login", {
-    method: "post",
-    body: JSON.stringify(creds),
-  });
-  const data = await res.json();
+export async function loginUser(creds) {
+  try {
+    const userCredential = await signInWithEmailAndPassword(
+      auth,
+      creds.email,
+      creds.password
+    );
+    return userCredential.user; // Return the authenticated user data
+  } catch (error) {
+    const errorMessage = error.message;
+    const errorCode = error.code;
 
-  if (!res.ok) {
-    throw {
-      message: data.message,
-      statusText: res.statusText,
-      status: res.status,
-    };
+    // Handle specific Firebase authentication errors
+    if (errorCode === "auth/user-not-found") {
+      throw {
+        message: "User not found. Please check the email address.",
+        status: errorCode,
+      };
+    } else if (errorCode === "auth/wrong-password") {
+      throw {
+        message: "Incorrect password. Please try again.",
+        status: errorCode,
+      };
+    } else {
+      throw { message: errorMessage, status: errorCode }; // Catch other errors
+    }
   }
+}
 
-  return data;
+export async function createUser(creds) {
+  try {
+    const userCredential = await createUserWithEmailAndPassword(
+      auth,
+      creds.email,
+      creds.password
+    );
+    return userCredential.user; // Return the created user data
+  } catch (error) {
+    const errorMessage = error.message;
+    const errorCode = error.code;
+
+    if (errorCode === "auth/email-already-in-use") {
+      throw {
+        message: "Email is already in use. Please choose another one.",
+        status: errorCode,
+      };
+    } else {
+      throw { message: errorMessage, status: errorCode };
+    }
+  }
 }
 
 export default loginUser;
