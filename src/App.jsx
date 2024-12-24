@@ -13,8 +13,9 @@ import HostRvDetails from "./pages/host/HostRvDetails";
 import Description from "./pages/host/Description";
 import Photos from "./pages/host/Photos";
 import PageNotFound from "./pages/404/PageNotFound";
-import Login from "./pages/Login";
+import Login from "./pages/login/Login";
 import AuthRequired from "./components/AuthRequired";
+import SignUp from "./pages/login/SignUp";
 
 function App() {
   return (
@@ -27,6 +28,7 @@ function App() {
             <Route path="rvs" element={<RVs />} />
             <Route path="rvs/:id" element={<RVdetails />} />
             <Route path="login" element={<Login />} />
+            <Route path="/signUp" element={<SignUp />} />
             <Route element={<AuthRequired />}>
               <Route path="host" element={<HostLayout />}>
                 <Route index element={<Dashboard />} />

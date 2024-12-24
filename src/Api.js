@@ -3,6 +3,8 @@ import {
   getAuth,
   signInWithEmailAndPassword,
   createUserWithEmailAndPassword,
+  GoogleAuthProvider,
+  signInWithPopup,
 } from "firebase/auth";
 
 import {
@@ -27,6 +29,30 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const database = getFirestore(app);
+
+// Google Auth Provider
+const googleProvider = new GoogleAuthProvider();
+
+export async function loginWithGoogle() {
+  try {
+    const result = await signInWithPopup(auth, googleProvider);
+    const user = result.user; // Authenticated user
+    return user;
+  } catch (error) {
+    const errorMessage = error.message;
+    const errorCode = error.code;
+
+    // Handle specific Firebase authentication errors
+    if (errorCode === "auth/popup-closed-by-user") {
+      throw {
+        message: "Popup closed before completing sign-in.",
+        status: errorCode,
+      };
+    } else {
+      throw { message: errorMessage, status: errorCode }; // Catch other errors
+    }
+  }
+}
 
 // Refactor fetch calls
 const scooterDatabaseRef = collection(database, "Scooters");

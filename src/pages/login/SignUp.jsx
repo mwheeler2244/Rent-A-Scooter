@@ -1,62 +1,61 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import loginUser from "../Api.js";
+import { createUser } from "../../Api";
 
-function Login() {
-  const [userSubmit, setUserSubmit] = useState({ email: "", password: "" });
+function SignUp() {
+  const [userDetails, setUserDetails] = useState({ email: "", password: "" });
   const [message, setMessage] = useState("");
   const [error, setError] = useState(null);
   const [status, setStatus] = useState("idle");
-
   const navigate = useNavigate();
-
-  function handleForm(e) {
-    e.preventDefault();
-    setStatus("submitting");
-
-    loginUser(userSubmit)
-      .then((data) => {
-        setMessage(`Welcome back, ${data.email}`);
-        localStorage.setItem("loggedIn", true);
-        localStorage.setItem("userEmail", data.email);
-        // Pass the user data to the Dashboard page using state
-        navigate("/host", { replace: true });
-        setUserSubmit({ email: "", password: "" });
-      })
-      .catch((error) => setError(error.message))
-      .finally(() => setStatus("idle"));
-  }
 
   function handleChange(e) {
     const { name, value } = e.target;
-    setUserSubmit((prev) => ({ ...prev, [name]: value }));
+    setUserDetails((prev) => ({ ...prev, [name]: value }));
+  }
+
+  function handleSubmit(e) {
+    e.preventDefault();
+    setStatus("submitting");
+
+    createUser(userDetails)
+      .then((user) => {
+        setMessage(`Welcome, ${user.email}!`);
+        localStorage.setItem("loggedIn", true);
+        localStorage.setItem("userEmail", user.email);
+        navigate("/host", { replace: true });
+      })
+      .catch((err) => setError(err.message))
+      .finally(() => setStatus("idle"));
   }
 
   return (
     <div className="login-container">
-      <h1>Sign in to your account</h1>
+      <h1>Create a New Account</h1>
       {error && <p style={{ color: "red" }}>{error}</p>}
-      <form onSubmit={handleForm} className="login-form">
+      <form onSubmit={handleSubmit} className="login-form">
         <input
-          value={userSubmit.email}
+          value={userDetails.email}
           name="email"
           type="email"
           onChange={handleChange}
           placeholder="Email"
+          required
         />
         <input
-          value={userSubmit.password}
+          value={userDetails.password}
           name="password"
           type="password"
           onChange={handleChange}
           placeholder="Password"
+          required
         />
         <button
-          style={{ fontSize: "2rem" }}
           type="submit"
           disabled={status === "submitting"}
+          style={{ fontSize: "1.5rem" }}
         >
-          {status === "submitting" ? "Logging in..." : "Log in "}
+          {status === "submitting" ? "Creating Account..." : "Sign Up"}
         </button>
       </form>
       <p>{message}</p>
@@ -64,4 +63,4 @@ function Login() {
   );
 }
 
-export default Login;
+export default SignUp;

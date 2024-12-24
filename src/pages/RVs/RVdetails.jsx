@@ -8,7 +8,6 @@ function RVdetails() {
   const { id } = useParams();
   const [rv, setRv] = useState([]);
   const location = useLocation();
-  console.log(id);
 
   useEffect(() => {
     async function loadScooter() {
@@ -21,6 +20,7 @@ function RVdetails() {
 
   const typeLink = location.state?.type || "";
   const searchLink = location.state?.search || "";
+  console.log(searchLink);
   return (
     <div className="rv-detail-container">
       <Link to={`..${searchLink}`} relative="path">

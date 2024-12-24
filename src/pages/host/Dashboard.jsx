@@ -5,9 +5,6 @@ import { useState, useEffect } from "react";
 function Dashboard() {
   const [newUser, setUser] = useState(null);
 
-  const location = useLocation();
-  const user = location.state?.user;
-
   useEffect(() => {
     const userEmail = localStorage.getItem("userEmail");
 
