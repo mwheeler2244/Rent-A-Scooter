@@ -42,7 +42,8 @@ function Login() {
   }
 
   // Google Login Handler
-  async function handleGoogleLogin() {
+  async function handleGoogleLogin(e) {
+    e.preventDefault();
     try {
       const user = await loginWithGoogle(); // Call the loginWithGoogle function
       setMessage(`Welcome, ${user.displayName}`);
