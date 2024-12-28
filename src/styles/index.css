@@ -18,7 +18,7 @@ html,
 body {
   margin: 0;
   padding: 0;
-  background-color: #fff7ed;
+  background-color: black;
   font-family: "Inter", sans-serif;
 }
 
@@ -87,13 +87,13 @@ header .site-logo {
 
 a {
   text-decoration: none;
-  color: #4d4d4d;
+  color: white;
   font-weight: 600;
   padding: 5px 20px;
 }
 
 a:hover {
-  color: #161616;
+  color: #ff9f9f;
   text-decoration: underline;
 }
 
