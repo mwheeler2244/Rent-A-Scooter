@@ -120,7 +120,7 @@ a:hover {
   flex-direction: column;
   justify-content: center;
   min-height: 60vh;
-  background: url("./images/home2.JPG");
+  background: url("./images/home2.jpg");
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
